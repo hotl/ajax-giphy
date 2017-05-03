@@ -50,12 +50,32 @@ function gifsCreation(results) {
 			.attr('data-still', still)
 			.attr('data-animated', animated)
 			.attr('data-state', 'still')
-			.addClass('animal-btn');
+			.addClass('animal-btn')
+			.hover(function() {
+				return hover($(this));
+			}, function() {
+				return hover($(this));
+			});
 
 		let btn = $('<button>');
 		let p = $('<p>').text("Rating: " + data[i].rating);
 		btn.append(img).append(p);
 		$_animals.append(btn);
+	}
+}
+
+function hover(self) {
+	let state = self.attr('data-state');
+
+	switch (state) {
+		case 'still':
+			self.attr('src', self.attr('data-animated'));
+			self.attr('data-state', 'animated');
+			break;
+		case 'animated':
+			self.attr('src', self.attr('data-still'));
+			self.attr('data-state', 'still');
+			break;
 	}
 }
 
